@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Pikachu - Pikachu Kawaii</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <!-- Menu Screen -->
+    <div id="menu-screen" class="screen active">
+        <div class="menu-container">
+            <h1 class="game-title">
+                <span class="title-icon">⚡</span>
+                PIKACHU
+                <span class="title-icon">⚡</span>
+            </h1>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="startGame('easy')">
+                    <span class="btn-icon">🌟</span>
+                    Dễ (8x8)
+                </button>
+                <button class="btn btn-primary" onclick="startGame('medium')">
+                    <span class="btn-icon">⭐</span>
+                    Trung Bình (10x10)
+                </button>
+                <button class="btn btn-primary" onclick="startGame('hard')">
+                    <span class="btn-icon">💫</span>
+                    Khó (12x12)
+                </button>
+                <button class="btn btn-secondary" onclick="showSettings()">
+                    <span class="btn-icon">⚙️</span>
+                    Cài Đặt
+                </button>
+                <button class="btn btn-secondary" onclick="showInstructions()">
+                    <span class="btn-icon">❓</span>
+                    Hướng Dẫn
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="header-item">
+                <span class="label">Level:</span>
+                <span id="level-display" class="value">1</span>
+            </div>
+            <div class="header-item">
+                <span class="label">Điểm:</span>
+                <span id="score-display" class="value">0</span>
+            </div>
+            <div class="header-item">
+                <span class="label">Thời Gian:</span>
+                <span id="timer-display" class="value">5:00</span>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button class="btn-control" onclick="useHint()" id="hint-btn">
+                <span class="btn-icon">💡</span>
+                Gợi Ý (<span id="hint-count">3</span>)
+            </button>
+            <button class="btn-control" onclick="shuffleTiles()">
+                <span class="btn-icon">🔄</span>
+                Xáo Trộn
+            </button>
+            <button class="btn-control" onclick="pauseGame()">
+                <span class="btn-icon">⏸️</span>
+                Tạm Dừng
+            </button>
+            <button class="btn-control" onclick="quitGame()">
+                <span class="btn-icon">🏠</span>
+                Thoát
+            </button>
+        </div>
+
+        <div id="game-board" class="game-board"></div>
+        
+        <canvas id="line-canvas" class="line-canvas"></canvas>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="screen overlay">
+        <div class="modal">
+            <h2>⏸️ Tạm Dừng</h2>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="resumeGame()">
+                    <span class="btn-icon">▶️</span>
+                    Tiếp Tục
+                </button>
+                <button class="btn btn-secondary" onclick="restartGame()">
+                    <span class="btn-icon">🔄</span>
+                    Chơi Lại
+                </button>
+                <button class="btn btn-secondary" onclick="quitToMenu()">
+                    <span class="btn-icon">🏠</span>
+                    Menu Chính
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="screen overlay">
+        <div class="modal">
+            <h2>😢 Hết Giờ!</h2>
+            <div class="result-stats">
+                <p>Điểm: <span id="final-score">0</span></p>
+                <p>Level đạt được: <span id="final-level">1</span></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="restartGame()">
+                    <span class="btn-icon">🔄</span>
+                    Chơi Lại
+                </button>
+                <button class="btn btn-secondary" onclick="quitToMenu()">
+                    <span class="btn-icon">🏠</span>
+                    Menu Chính
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="screen overlay">
+        <div class="modal">
+            <h2>🎉 Chiến Thắng!</h2>
+            <div class="result-stats">
+                <p>Điểm: <span id="victory-score">0</span></p>
+                <p>Level: <span id="victory-level">1</span></p>
+                <p>Thời gian còn lại: <span id="victory-time">0:00</span></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="nextLevel()">
+                    <span class="btn-icon">⏭️</span>
+                    Level Tiếp Theo
+                </button>
+                <button class="btn btn-secondary" onclick="quitToMenu()">
+                    <span class="btn-icon">🏠</span>
+                    Menu Chính
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen overlay">
+        <div class="modal">
+            <h2>⚙️ Cài Đặt</h2>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="sound-toggle" checked onchange="toggleSound()">
+                        Âm thanh
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="music-toggle" checked onchange="toggleMusic()">
+                        Nhạc nền
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="animation-toggle" checked onchange="toggleAnimation()">
+                        Hiệu ứng
+                    </label>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="closeSettings()">
+                    <span class="btn-icon">✓</span>
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Screen -->
+    <div id="instructions-screen" class="screen overlay">
+        <div class="modal">
+            <h2>❓ Hướng Dẫn Chơi</h2>
+            <div class="instructions-content">
+                <p><strong>Mục tiêu:</strong> Ghép các cặp Pikachu giống nhau để xóa hết các ô trên bảng.</p>
+                <p><strong>Cách chơi:</strong></p>
+                <ul>
+                    <li>Nhấp vào hai ô Pikachu giống nhau để ghép cặp</li>
+                    <li>Đường nối giữa hai ô không được vượt quá 3 đoạn thẳng</li>
+                    <li>Đường nối không được đi qua ô khác</li>
+                    <li>Hoàn thành trong thời gian quy định</li>
+                </ul>
+                <p><strong>Tính năng:</strong></p>
+                <ul>
+                    <li>💡 Gợi ý: Hiển thị một cặp có thể ghép (3 lần)</li>
+                    <li>🔄 Xáo trộn: Đổi vị trí các ô còn lại</li>
+                </ul>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="closeInstructions()">
+                    <span class="btn-icon">✓</span>
+                    Đã Hiểu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
