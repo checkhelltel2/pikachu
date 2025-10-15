@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Pikachu - Ghép Hình</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎮 GAME PIKACHU 🎮</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Điểm:</span>
+                    <span id="score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Cấp độ:</span>
+                    <span id="level" class="stat-value">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Thời gian:</span>
+                    <span id="timer" class="stat-value">300</span>s
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Cao nhất:</span>
+                    <span id="highScore" class="stat-value">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Power-ups -->
+        <div class="powerups">
+            <button id="hintBtn" class="powerup-btn" title="Gợi ý (3 lần)">
+                💡 <span id="hintCount">3</span>
+            </button>
+            <button id="shuffleBtn" class="powerup-btn" title="Xáo trộn (2 lần)">
+                🔄 <span id="shuffleCount">2</span>
+            </button>
+            <button id="timeBtn" class="powerup-btn" title="Thêm thời gian (2 lần)">
+                ⏰ <span id="timeCount">2</span>
+            </button>
+            <button id="pauseBtn" class="powerup-btn" title="Tạm dừng">
+                ⏸️
+            </button>
+        </div>
+
+        <!-- Game Board -->
+        <div id="gameBoard" class="game-board"></div>
+
+        <!-- Menu Overlay -->
+        <div id="menuOverlay" class="overlay">
+            <div class="menu-content">
+                <h2>🎮 GAME PIKACHU 🎮</h2>
+                <p>Ghép các cặp Pikachu giống nhau!</p>
+                <div class="difficulty-selection">
+                    <h3>Chọn độ khó:</h3>
+                    <button class="difficulty-btn" data-level="1">Dễ (6x6)</button>
+                    <button class="difficulty-btn" data-level="2">Trung bình (8x8)</button>
+                    <button class="difficulty-btn" data-level="3">Khó (10x10)</button>
+                </div>
+                <button id="startBtn" class="main-btn">BẮT ĐẦU</button>
+                <div class="instructions">
+                    <h4>Hướng dẫn:</h4>
+                    <p>• Click vào 2 ô Pikachu giống nhau để ghép cặp</p>
+                    <p>• Đường nối tối đa 3 góc</p>
+                    <p>• Hoàn thành trước khi hết thời gian</p>
+                    <p>• Sử dụng power-up để hỗ trợ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Overlay -->
+        <div id="gameOverOverlay" class="overlay hidden">
+            <div class="menu-content">
+                <h2 id="gameOverTitle">🎉 CHIẾN THẮNG! 🎉</h2>
+                <p id="gameOverMessage">Bạn đã hoàn thành cấp độ!</p>
+                <div class="final-stats">
+                    <p>Điểm số: <span id="finalScore">0</span></p>
+                    <p>Cấp độ: <span id="finalLevel">1</span></p>
+                    <p>Điểm cao nhất: <span id="finalHighScore">0</span></p>
+                </div>
+                <button id="nextLevelBtn" class="main-btn">CẤP ĐỘ TIẾP</button>
+                <button id="restartBtn" class="main-btn secondary">CHƠI LẠI</button>
+                <button id="menuBtn" class="main-btn secondary">MENU</button>
+            </div>
+        </div>
+
+        <!-- Pause Overlay -->
+        <div id="pauseOverlay" class="overlay hidden">
+            <div class="menu-content">
+                <h2>⏸️ TẠM DỪNG ⏸️</h2>
+                <button id="resumeBtn" class="main-btn">TIẾP TỤC</button>
+                <button id="quitBtn" class="main-btn secondary">THOÁT</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
