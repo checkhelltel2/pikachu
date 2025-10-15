@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikachu - Game Ghép Hình</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 PIKACHU GAME 🎮</h1>
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">Điểm:</span>
+                    <span id="score" class="value">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Cấp độ:</span>
+                    <span id="level" class="value">1</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Thời gian:</span>
+                    <span id="timer" class="value">180</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Điểm cao:</span>
+                    <span id="highScore" class="value">0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="powerups">
+            <button id="hintBtn" class="powerup-btn" title="Gợi ý (3 lần)">
+                💡 <span id="hintCount">3</span>
+            </button>
+            <button id="shuffleBtn" class="powerup-btn" title="Xáo trộn (2 lần)">
+                🔄 <span id="shuffleCount">2</span>
+            </button>
+            <button id="timeBtn" class="powerup-btn" title="Thêm thời gian (2 lần)">
+                ⏱️ <span id="timeCount">2</span>
+            </button>
+        </div>
+
+        <div id="gameBoard" class="game-board"></div>
+
+        <div class="controls">
+            <button id="newGameBtn" class="control-btn">🎮 Game Mới</button>
+            <button id="pauseBtn" class="control-btn">⏸️ Tạm Dừng</button>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Game Over!</h2>
+            <p id="modalMessage"></p>
+            <div id="modalStats"></div>
+            <button id="modalBtn" class="control-btn">Chơi Lại</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="matchSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYmMj5KVmJueoaSnqqyur7Cxsq+trKqop6WjoJ6cm5qYlpWTkY+Ni4mHhYOBf319e3l3dXNxb21ramhnZWRiYGBfXVtaWFdWVFNRUE5NTEpJR0ZFRENCQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpbXF1eYGBhYmNkZWZnaGlqa2xtbm9wcXNzdXZ3eXp7fH1+gIGDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKysrOzs7Oysq+trKqop6WjoJ6cm5qYlpWTkY+Ni4mHhYOBf319e3l3dXNxb21ramhnZWRiYGBfXVtaWFdWVFNRUE5NTEpJR0ZFRENCQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQA=" type="audio/wav">
+    </audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
